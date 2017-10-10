@@ -6,7 +6,7 @@ import socket
 import sys
 
 try: 
-	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
+	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 except socket.error, msg: # si es del tipo socket.error
 	print "Failed to create socket. Error code: " + str(msg[0]) + ", error message: " + msg[1] 
