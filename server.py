@@ -41,7 +41,8 @@ def main():
     endpoint = ('',args.port)
     ss.bind(endpoint)
     ss.listen(3)
-
+    
+    image = false
     print("server ready")
 
     while True:
@@ -50,7 +51,10 @@ def main():
          request = cs.recv(1024).decode('ascii')
 	 print request
          reply = http_handle(request)
-         cs.send(reply.encode('ascii'))
+	 if (image)
+		cs.send(reply)
+	 else
+         	cs.send(reply.encode('ascii'))
 
 
          print("\n\nReceived request")
@@ -78,7 +82,7 @@ def http_handle(request_string):
     request_dir = request_string.split(" ")
     path = request_dir[1]
     current_path = os.getcwd()
-   
+  
     
     try:
 	sendReply = False
@@ -87,9 +91,11 @@ def http_handle(request_string):
 		sendReply = True
 	if path.endswith(".jpg"):
 		mimetype='image/jpg\n'
+		image=true
 		sendReply = True
 	if path.endswith(".gif"):
 		mimetype='image/gif\n'
+		image=true
 		sendReply = True
 	if path.endswith(".js"):
 		mimetype='application/javascript\n'
