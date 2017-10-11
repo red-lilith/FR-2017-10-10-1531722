@@ -41,8 +41,7 @@ def main():
     endpoint = ('',args.port)
     ss.bind(endpoint)
     ss.listen(3)
-    
-    image = false
+  
     print("server ready")
 
     while True:
@@ -51,10 +50,7 @@ def main():
          request = cs.recv(1024).decode('ascii')
 	 print request
          reply = http_handle(request)
-	 if (image)
-		cs.send(reply)
-	 else
-         	cs.send(reply.encode('ascii'))
+	 cs.send(reply)
 
 
          print("\n\nReceived request")
@@ -91,11 +87,12 @@ def http_handle(request_string):
 		sendReply = True
 	if path.endswith(".jpg"):
 		mimetype='image/jpg\n'
-		image=true
+		sendReply = True
+	if path.endswith(".png"):
+		mimetype='image/png\n'
 		sendReply = True
 	if path.endswith(".gif"):
 		mimetype='image/gif\n'
-		image=true
 		sendReply = True
 	if path.endswith(".js"):
 		mimetype='application/javascript\n'
@@ -109,6 +106,9 @@ def http_handle(request_string):
 			data = file_.read()
 		headers = "HTTP/1.1 200 OK\n" + "Content-type: " + mimetype + "Connection: close\n\n"
 		answer = "%s%s\n"%(headers,data)
+		print data
+	else:
+		answer = "Error 404\nFile Not Found: " + path
 
     except IOError:
 	answer = "Error 404\nFile Not Found: " + path
